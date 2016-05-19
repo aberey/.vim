@@ -15,6 +15,9 @@ Clone into user home and call:
   brew install scala210
   brew install python 
   pip install --user powerline-status
+  git clone https://github.com/aberey/.vim ~/.vim
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim +BundleInstall +qall
+  run make in .vim/bundle/vimproc/
 
 
