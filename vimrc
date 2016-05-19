@@ -174,8 +174,9 @@ Plugin 'dscleaver/sbt-quickfix'
 Plugin 'derekwyatt/vim-scala'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" scalariform support
-Plugin 'rompetroll/vim-scalariform'
+" scalariform support - plugin corrupt, so install scalariform locally and use directly
+" Plugin 'rompetroll/vim-scalariform'
+au BufEnter *.scala setl formatprg=scalariform\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentClassDeclaration\ +preserveDanglingCloseParenthesis\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " session management using :SaveSession and :OpenSession
@@ -548,7 +549,7 @@ endif " has("autocmd")
 
 
 " Shortcut to rapidly toggle `set list`
-" nmap <leader>l :set list!<CR>
+nmap <leader>l :set list!<CR>
 
 " toggle search results
 nmap <leader>s :set hlsearch!<CR>
@@ -569,8 +570,8 @@ nmap <leader>p :po<CR>
 nmap <leader>r :so $MYVIMRC<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-"set listchars=tab:.\ ,eol:¬
-set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab 
+set listchars=tab:.\ ,eol:¬
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
 
 " Invisible character colors
 highlight NonText guifg=#4a4a59
