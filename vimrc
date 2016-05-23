@@ -114,6 +114,9 @@ nmap <leader>o :VimFilerExplorer <CR>
 " show certain hidden files
 let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
 
+nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('vsplit')
+nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helps commenting out selection
 Plugin 'scrooloose/nerdcommenter'
@@ -361,7 +364,8 @@ Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/vimproc'
 Plugin 'tsukkee/unite-tag'
-nnoremap <Nul> :Unite -start-insert buffer file_rec/async<CR>
+"nnoremap <Nul> :Unite -start-insert buffer file_rec/async<CR>
+nnoremap <Nul> :Unite -start-insert -ignorecase -smartcase buffer file_rec/git<CR>
 "nnoremap <c-@> :Unite -start-insert buffer file_rec<CR> 
 "nnoremap <c-Space> :Unite -start-insert buffer file_rec<CR> 
 " -auto-preview
@@ -373,6 +377,14 @@ nnoremap <Nul> :Unite -start-insert buffer file_rec/async<CR>
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.*project.*\|.*target.*\|.*cache.*')
+call unite#custom#profile('custom', 'context.ignorecase', 1)
+
+"not working?
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+	" Overwrite settings.
+	imap <silent><buffer><expr> <C-s>     unite#do_action('split')
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " simplenote related - currently no working solution avaialable
@@ -418,6 +430,7 @@ Plugin 'ensime/ensime-vim'
 autocmd BufWritePost *.scala :EnTypeCheck
 nnoremap <leader>t :EnTypeCheck<CR>
 au FileType scala nnoremap <leader>df :EnDeclarationSplit v<CR>
+au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " camel case movements
