@@ -114,9 +114,6 @@ nmap <leader>o :VimFilerExplorer <CR>
 " show certain hidden files
 let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
 
-nnoremap <silent><buffer><expr> v vimfiler#do_switch_action('vsplit')
-nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helps commenting out selection
 Plugin 'scrooloose/nerdcommenter'
@@ -150,22 +147,25 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'majutsushi/tagbar'
 nmap <leader>tb :TagbarToggle<CR>
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
-let g:tagbar_ctags_bin="/usr/bin/ctags"
+" use local ctags instead of one in /usr/bin/ 
+let g:tagbar_ctags_bin="ctags"
+
 let g:tagbar_type_scala = {
-			\ 'ctagstype' : 'Scala',
-			\ 'kinds'     : [
-			\ 'p:packages:1',
-			\ 'V:values',
-			\ 'v:variables',
-			\ 'T:types',
-			\ 't:traits',
-			\ 'o:objects',
-			\ 'a:aclasses',
-			\ 'c:classes',
-			\ 'r:cclasses',
-			\ 'm:methods'
-			\ ]
-			\ }
+    \ 'ctagstype' : 'scala',
+    \ 'sro'       : '.',
+    \ 'kinds'     : [
+    \ 'p:packages',
+    \ 'T:types:1',
+    \ 't:traits',
+    \ 'o:objects',
+    \ 'O:case objects',
+    \ 'c:classes',
+    \ 'C:case classes',
+    \ 'm:methods',
+    \ 'V:values:1',
+    \ 'v:variables:1'
+    \ ]
+\ }
  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " generates quickfix file based on scala - requires installing sbt plugin
@@ -190,6 +190,17 @@ Plugin 'xolox/vim-session'
 " change surround using cs'" to change ' to "
 Plugin 'tpope/vim-surround'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" next/prev bindings
+Plugin 'tpope/vim-unimpaired'
+
+nmap < [
+nmap > ]
+omap < [
+omap > ]
+xmap < [
+xmap > ]
+  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tab completetion
 Plugin 'ervandew/supertab'
