@@ -67,6 +67,8 @@ Plugin 'vim-scripts/L9'
 " target highlighted motion - using <leader><leader> w|f|t
 Plugin 'Lokaltog/vim-easymotion'
 
+map <Leader> <Plug>(easymotion-prefix)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto-complete - successor of neocomplcache
 Plugin 'Shougo/neocomplete'
@@ -439,7 +441,7 @@ Plugin 'Raimondi/delimitMate'
 " scala ensime
 Plugin 'ensime/ensime-vim'
 autocmd BufWritePost *.scala :EnTypeCheck
-nnoremap <leader>t :EnTypeCheck<CR>
+nnoremap <leader>tc :EnTypeCheck<CR>
 au FileType scala nnoremap <leader>df :EnDeclarationSplit v<CR>
 au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
 
