@@ -475,6 +475,10 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'edkolev/tmuxline.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tmux pane navigation
+Plugin 'christoomey/vim-tmux-navigator'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom dev icon integration
 " must load after NERDTree, vim-airline, CtrlP, powerline, unite, vimfiler, flagship 
 Plugin 'ryanoasis/vim-devicons'
