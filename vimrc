@@ -469,6 +469,7 @@ xmap <silent> ie <Plug>CamelCaseMotion_ie
 "color schemes
 Plugin 'tomasr/molokai'
 Plugin 'nanotech/jellybeans.vim'
+" http://vimawesome.com/plugin/hemisu-vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tmux theme integration
