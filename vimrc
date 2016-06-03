@@ -112,7 +112,7 @@ let g:neocomplete#sources#dictionary#dictionaries = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " file explorer
 Plugin 'Shougo/vimfiler.vim'
-nmap <leader>o :VimFilerExplorer <CR>
+nmap <leader>x :VimFilerExplorer <CR>
 " show certain hidden files
 let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
 
@@ -139,10 +139,6 @@ Plugin 'scrooloose/syntastic'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-optimized meaningful line numbers
 Plugin 'myusuf3/numbers.vim'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" syntax highlighting for robotframework files
-" Plugin 'mfukar/robotframework-vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags pane
@@ -377,16 +373,27 @@ Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/unite-outline'
 Plugin 'Shougo/vimproc'
 Plugin 'tsukkee/unite-tag'
+Plugin 'sgur/unite-qf'
+Plugin 'lambdalisue/unite-grep-vcs'
+
 "nnoremap <Nul> :Unite -start-insert buffer file_rec/async<CR>
-nnoremap <Nul> :Unite -start-insert -ignorecase -smartcase buffer file_rec/git<CR>
+nnoremap <Nul> :Unite -start-insert -ignorecase -smartcase file_rec/git<CR>
+nnoremap <leader>qf :<C-u>Unite -start-insert -ignorecase -smartcase qf:enc=utf-8 -no-quit<CR> 
+nnoremap <leader>bf :<C-u>Unite -start-insert -ignorecase -smartcase buffer<CR> 
+nnoremap <leader>gg :<C-u>Unite -start-insert -ignorecase -smartcase grep/git:.<CR> 
+nnoremap <leader>ol :<C-u>Unite -start-insert -ignorecase -smartcase outline<CR> 
+nnoremap <leader>ts :<C-u>Unite -start-insert -ignorecase -smartcase tag<CR> 
+nnoremap <leader>ag :<C-u>Unite -start-insert -ignorecase -smartcase file_rec/async<CR> 
+"nnoremap <leader>ag :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <leader>ag :<C-u>Unite -start-insert -ignorecase -smartcase grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+
 "nnoremap <c-@> :Unite -start-insert buffer file_rec<CR> 
 "nnoremap <c-Space> :Unite -start-insert buffer file_rec<CR> 
 " -auto-preview
-"nnoremap <TODO> :Unite -start-insert tags<CR>
-"nnoremap <TODO> :Unite -start-insert outline<CR>
 "nnoremap <TODO> :Unite -start-insert sn<CR>
 "nnoremap <TODO> :Unite -start-insert sn_search<CR>
 "nnoremap <TODO> :Unite -start-insert sn_tag<CR>
+"
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.*project.*\|.*target.*\|.*cache.*')
@@ -398,6 +405,12 @@ function! s:unite_my_settings()
 	" Overwrite settings.
 	imap <silent><buffer><expr> <C-s>     unite#do_action('split')
 endfunction
+
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " simplenote related - currently no working solution avaialable
@@ -415,6 +428,15 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git integration
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
+
+" map .. to go back to go to parent tree
+autocmd User fugitive 
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git integration
@@ -422,12 +444,8 @@ Plugin 'airblade/vim-gitgutter'
 set updatetime=250
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" json syntax higlighting
-Plugin 'elzr/vim-json'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ansible syntax highlighting
-Plugin 'chase/vim-ansible-yaml'
+" syntax higlighting
+Plugin 'sheerun/vim-polyglot'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " docker support
