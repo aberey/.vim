@@ -5,7 +5,7 @@ set nocompatible
 let mapleader = " "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin manager
+" plugin manager - consider vim-plug or dein as alternative
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
@@ -41,7 +41,7 @@ Plugin 'gmarik/vundle'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " updates ctags when saving files - retired by sbt-ctags
-"Plugin 'vim-scripts/AutoTag'  
+"Plugin 'vim-scripts/AutoTag'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use :BD to delete buffer without killing window
@@ -73,7 +73,7 @@ let g:neocomplete#sources#dictionary#dictionaries = {
   \ 'default' : '',
   \ 'scala' : $HOME . '/.vim/dict/scala.dict',
 	\ }
- 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " snippets engine - alterantive to snipmate, ultisnips, xptemplate
 Plugin 'Shougo/neosnippet'
@@ -141,7 +141,7 @@ Plugin 'myusuf3/numbers.vim'
 Plugin 'majutsushi/tagbar'
 nmap <leader>tb :TagbarToggle<CR>
 
-let g:tagbar_ctags_bin="ctags" " use local ctags instead of one in /usr/bin/  
+let g:tagbar_ctags_bin="ctags" " use local ctags instead of one in /usr/bin/
 
 let g:tagbar_type_scala = {
     \ 'ctagstype' : 'scala',
@@ -159,7 +159,7 @@ let g:tagbar_type_scala = {
     \ 'v:variables:1'
     \ ]
 \ }
- 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " generates quickfix file based on scala - requires installing sbt plugin -
 " retired by vim-ensime
@@ -168,7 +168,7 @@ let g:tagbar_type_scala = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " adds various scala related add-ons like tagbar plugin type definition for scala
 Plugin 'derekwyatt/vim-scala'
-nnoremap <leader>oi :SortScalaImports<CR> 
+nnoremap <leader>oi :SortScalaImports<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scalariform support - plugin corrupt, so install scalariform locally and use directly
@@ -177,7 +177,7 @@ nnoremap <leader>oi :SortScalaImports<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " session management using :SaveSession and :OpenSession
-Plugin 'xolox/vim-misc' 
+Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 
 let g:session_autosave = 'no'
@@ -187,7 +187,7 @@ let g:session_autosave = 'no'
 Plugin 'tpope/vim-surround'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" next/prev bindings to [ and ] 
+" next/prev bindings to [ and ]
 Plugin 'tpope/vim-unimpaired'
 
 " rebind to < and >
@@ -197,7 +197,7 @@ omap < [
 omap > ]
 xmap < [
 xmap > ]
-  
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " sublime text style multiple selections with C-n
 Plugin 'terryma/vim-multiple-cursors'
@@ -308,24 +308,24 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
   return lightline#statusline(0)
 endfunction
 
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp,*.scala call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
+"augroup AutoSyntastic
+  "autocmd!
+  "autocmd BufWritePost *.c,*.cpp,*.scala call s:syntastic()
+"augroup END
+"function! s:syntastic()
+  "SyntasticCheck
+  "call lightline#update()
+"endfunction
 
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
- 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " undo tree
 "Plugin 'sjl/gundo.vim'
 Plugin 'mbbill/undotree'
-nnoremap <leader>ut :UndotreeToggle<CR> 
+nnoremap <leader>ut :UndotreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use :Tab /foo to tabularize
@@ -357,11 +357,11 @@ Plugin 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" access history of yanks with <C-n> and <C-p> after paste
- Plugin 'vim-scripts/YankRing.vim'
+" access history of yanks with <C-n> and <C-p> after paste - conflicts with  multi-select
+ "Plugin 'vim-scripts/YankRing.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" <C-w>o to toggle full screen 
+" <C-w>o to toggle full screen
 Plugin 'regedarek/ZoomWin'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -376,12 +376,12 @@ Plugin 'lambdalisue/unite-grep-vcs'
 " <C-Space> works mapping <c-@> or <Nul> depending on terminal
 " -auto-preview to open additional preview pane - too slow however
 nnoremap <Nul> :Unite -start-insert -ignorecase -smartcase file_rec/git<CR>
-nnoremap <leader>qf :<C-u>Unite -start-insert -ignorecase -smartcase qf:enc=utf-8 -no-quit<CR> 
-nnoremap <leader>bf :<C-u>Unite -start-insert -ignorecase -smartcase buffer<CR> 
-nnoremap <leader>gg :<C-u>Unite -start-insert -ignorecase -smartcase grep/git:.<CR> 
-nnoremap <leader>ol :<C-u>Unite -start-insert -ignorecase -smartcase outline<CR> 
-nnoremap <leader>ts :<C-u>Unite -start-insert -ignorecase -smartcase tag<CR> 
-nnoremap <leader>ag :<C-u>Unite -start-insert -ignorecase -smartcase file_rec/async<CR> 
+nnoremap <leader>qf :<C-u>Unite -start-insert -ignorecase -smartcase qf:enc=utf-8 -no-quit<CR>
+nnoremap <leader>bf :<C-u>Unite -start-insert -ignorecase -smartcase buffer<CR>
+nnoremap <leader>gg :<C-u>Unite -start-insert -ignorecase -smartcase grep/git:.<CR>
+nnoremap <leader>ol :<C-u>Unite -start-insert -ignorecase -smartcase outline<CR>
+nnoremap <leader>ts :<C-u>Unite -start-insert -ignorecase -smartcase tag<CR>
+"nnoremap <leader>ag :<C-u>Unite -start-insert -ignorecase -smartcase file_rec/async<CR>
 "nnoremap <leader>ag :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <leader>ag :<C-u>Unite -start-insert -ignorecase -smartcase grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
@@ -404,7 +404,7 @@ function! s:unite_my_settings()
 endfunction
 
 augroup unite
-  au! 
+  au!
   autocmd FileType unite call s:unite_my_settings()
 augroup END
 
@@ -427,26 +427,26 @@ endif
 
 " simplenote access using unite and metarw
 "Plugin 'sorah/metarw-simplenote.vim'
- 
+
 "nnoremap <TODO> :Unite -start-insert sn<CR>
 "nnoremap <TODO> :Unite -start-insert sn_search<CR>
 "nnoremap <TODO> :Unite -start-insert sn_tag<CR>
- 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git integration
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
- 
-augroup fugitive
-  au! 
-  " map .. to go back to go to parent tree
-  autocmd User fugitive 
+
+"augroup fugitive
+  "au!
+  "" map .. to go back to go to parent tree
+  autocmd User fugitive
     \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
     \   nnoremap <buffer> .. :edit %:h<CR> |
     \ endif
   " auto-close hidden buffers used for browsing git objects
   autocmd BufReadPost fugitive://* set bufhidden=delete
-augroup END
+"augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " git integration - shows git flags next to line numbers
@@ -461,7 +461,7 @@ Plugin 'sheerun/vim-polyglot'
 " insert mode auto-completion for quotes, parens, brackets
 "Plugin 'Raimondi/delimitMate'
 Plugin 'jiangmiao/auto-pairs'
- 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scala ensime
 Plugin 'ensime/ensime-vim'
@@ -504,11 +504,24 @@ Plugin 'edkolev/tmuxline.vim'
 " tmux pane navigation
 Plugin 'christoomey/vim-tmux-navigator'
 
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+"nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+"nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+"nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom dev icon integration
-" must load after NERDTree, vim-airline, CtrlP, powerline, unite, vimfiler, flagship 
+" must load after NERDTree, vim-airline, CtrlP, powerline, unite, vimfiler, flagship
 Plugin 'ryanoasis/vim-devicons'
 set guifont=Literation\ Mono\ Powerline\ Nerd\ Font\ Complete.ttf:h11
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" show/remove trailing whitespace
+Plugin 'ntpeters/vim-better-whitespace'
+nnoremap <leader><leader>w :StripWhitespace<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -519,20 +532,20 @@ if has("clipboard")
 		set clipboard+=unnamedplus
 	endif
 endif
- 
+
 if has("vms")
 	set nobackup		" do not keep a backup file, use versions instead
 else
   set backup		" keep a backup file
 endif
- 
+
 if has('mouse')
   set mouse=a
 endif
- 
-set pastetoggle=<F2> " toggle paste mode to avoid autoformatting 
-set hidden " allow unsaved buffers in hidden windows 
-set backspace=indent,eol,start " allow backspacing over everything in insert mode 
+
+set pastetoggle=<F2> " toggle paste mode to avoid autoformatting
+set hidden " allow unsaved buffers in hidden windows
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set history=500		" keep x lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -541,22 +554,22 @@ set showmode " show editor mode
 set scrolloff=4 " When the page starts to scroll, keep the cursor x lines from the top and the bottom
 set virtualedit=all " Allow the cursor to go in to "invalid" places
 set encoding=utf-8
-set laststatus=2 " always display statusline 
-set listchars=tab:.\ ,eol:¬  " Use the same symbols as TextMate for tabstops and EOLs 
-set tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+set laststatus=2 " always display statusline
+set listchars=tab:.\ ,eol:¬  " Use the same symbols as TextMate for tabstops and EOLs
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set autoread " automatically reload changed files if they have not been edited
-set nu " show line numbers 
-set nowrap " disable line wrapping 
+set nu " show line numbers
+set nowrap " disable line wrapping
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 set hlsearch "highlight search results
-set colorcolumn=+1 " color columns beyond textwidth 
+set colorcolumn=+1 " color columns beyond textwidth
 set autoindent		" always set autoindenting on
- 
+
 " good 256color schemes: lucius, xoria256, jellybeans,
 " other 256color schemes: gardener, desert256, inkpot, wombat256, zenburn
 colorscheme jellybeans
- 
+
 " color overrides
 highlight ColorColumn guibg=#2d2d2d ctermbg=235
 highlight NonText guifg=#4a4a59
@@ -566,10 +579,10 @@ filetype plugin indent on "enable filetype detection, plugin and indent
 syntax on "switch on syntax highlighting
 
 augroup vimrcEx
-  au! 
+  au!
   autocmd FileType scala set textwidth=72
   autocmd FileType text setlocal textwidth=78
- 
+
   " When opening a file, jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -641,6 +654,6 @@ nmap [27;6;9~ :bprev<CR>
 "nmap <C-S-Tab> :bnext<CR>
 
 " screen scrolling
-map <c-j> <c-e>
-map <c-k> <c-y>
+map <C-j> <C-e>
+map <C-k> <C-y>
 
