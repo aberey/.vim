@@ -376,7 +376,7 @@ Plugin 'lambdalisue/unite-grep-vcs'
 " <C-Space> works mapping <c-@> or <Nul> depending on terminal
 " -auto-preview to open additional preview pane - too slow however
 nnoremap <Nul> :Unite -start-insert -ignorecase -smartcase file_rec/git<CR>
-nnoremap <leader>qf :<C-u>Unite -start-insert -ignorecase -smartcase qf:enc=utf-8 -no-quit<CR>
+nnoremap <leader>qf :<C-u>Unite -ignorecase -smartcase qf:enc=utf-8 -no-quit -default-action=persist_open<CR>
 nnoremap <leader>bf :<C-u>Unite -start-insert -ignorecase -smartcase buffer<CR>
 nnoremap <leader>gg :<C-u>Unite -start-insert -ignorecase -smartcase grep/git:.<CR>
 nnoremap <leader>ol :<C-u>Unite -start-insert -ignorecase -smartcase outline<CR>
@@ -401,6 +401,7 @@ function! s:unite_my_settings()
   nmap <buffer> <C-j> <plug>(unite_toggle_auto_preview)
   imap <buffer> <TAB> <plug>(unite_select_next_line)
   imap <buffer> <S-TAB> <plug>(unite_select_previous_line)
+  "imap <silent><buffer><expr> <C-u> unite#do_action('persist_open')
 endfunction
 
 augroup unite
@@ -565,6 +566,7 @@ set directory=~/.vim/backup
 set hlsearch "highlight search results
 set colorcolumn=+1 " color columns beyond textwidth
 set autoindent		" always set autoindenting on
+set list " show whitespace characters
 
 " good 256color schemes: lucius, xoria256, jellybeans,
 " other 256color schemes: gardener, desert256, inkpot, wombat256, zenburn
