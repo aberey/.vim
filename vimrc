@@ -181,6 +181,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 
 let g:session_autosave = 'no'
+let g:session_autoload = 'no'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " change surround like cs'" to change ' to "
@@ -358,7 +359,8 @@ let g:vim_markdown_folding_disabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " access history of yanks with <C-n> and <C-p> after paste - conflicts with  multi-select
- "Plugin 'vim-scripts/YankRing.vim'
+"Plugin 'vim-scripts/YankRing.vim'
+"let g:yankring_history_dir = '/tmp'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " <C-w>o to toggle full screen
@@ -460,8 +462,8 @@ Plugin 'sheerun/vim-polyglot'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " insert mode auto-completion for quotes, parens, brackets
-"Plugin 'Raimondi/delimitMate'
-Plugin 'jiangmiao/auto-pairs'
+Plugin 'Raimondi/delimitMate'
+"Plugin 'jiangmiao/auto-pairs'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scala ensime
@@ -475,21 +477,21 @@ au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
 " camel case movements
 Plugin 'vim-scripts/camelcasemotion'
 
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-sunmap w
-sunmap b
-sunmap e
-sunmap ge
+"map <silent> w <Plug>CamelCaseMotion_w
+"map <silent> b <Plug>CamelCaseMotion_b
+"map <silent> e <Plug>CamelCaseMotion_e
+"map <silent> ge <Plug>CamelCaseMotion_ge
+"sunmap w
+"sunmap b
+"sunmap e
+"sunmap ge
 
-omap <silent> iw <Plug>CamelCaseMotion_iw
-xmap <silent> iw <Plug>CamelCaseMotion_iw
-omap <silent> ib <Plug>CamelCaseMotion_ib
-xmap <silent> ib <Plug>CamelCaseMotion_ib
-omap <silent> ie <Plug>CamelCaseMotion_ie
-xmap <silent> ie <Plug>CamelCaseMotion_ie
+"omap <silent> iw <Plug>CamelCaseMotion_iw
+"xmap <silent> iw <Plug>CamelCaseMotion_iw
+"omap <silent> ib <Plug>CamelCaseMotion_ib
+"xmap <silent> ib <Plug>CamelCaseMotion_ib
+"omap <silent> ie <Plug>CamelCaseMotion_ie
+"xmap <silent> ie <Plug>CamelCaseMotion_ie
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "color schemes
@@ -508,10 +510,10 @@ Plugin 'christoomey/vim-tmux-navigator'
 let g:tmux_navigator_no_mappings = 1
 
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-"nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-"nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-"nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " custom dev icon integration
@@ -656,6 +658,6 @@ nmap [27;6;9~ :bprev<CR>
 "nmap <C-S-Tab> :bnext<CR>
 
 " screen scrolling
-map <C-j> <C-e>
-map <C-k> <C-y>
+map J <C-e>
+map K <C-y>
 
