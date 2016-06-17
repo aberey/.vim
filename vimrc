@@ -586,6 +586,7 @@ augroup vimrcEx
   au!
   autocmd FileType scala set textwidth=72
   autocmd FileType text setlocal textwidth=78
+  autocmd FileType yaml setlocal ts=4 sts=4 sw=4 expandtab
 
   " When opening a file, jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
