@@ -108,7 +108,7 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 " file explorer
 Plugin 'Shougo/vimfiler.vim'
 
-nmap <leader>x :VimFilerExplorer <CR>
+nmap <leader>x :VimFilerExplorer -winwidth=50 <CR>
 " show certain hidden files
 let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
 
