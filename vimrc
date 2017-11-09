@@ -168,7 +168,9 @@ let g:tagbar_type_scala = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " adds various scala related add-ons like tagbar plugin type definition for scala
 Plugin 'derekwyatt/vim-scala'
-nnoremap <leader>oi :SortScalaImports<CR>
+let g:scala_sort_across_groups=1
+let g:scala_first_party_namespaces='\(ganesha\|adtech\)'
+nmap <leader>ss :SortScalaImports<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scalariform support - plugin corrupt, so install scalariform locally and use directly
@@ -192,12 +194,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 
 " rebind to < and >
-nmap < [
-nmap > ]
-omap < [
-omap > ]
-xmap < [
-xmap > ]
+"nmap < [
+"nmap > ]
+"omap < [
+"omap > ]
+"xmap < [
+"xmap > ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " sublime text style multiple selections with C-n
@@ -333,10 +335,13 @@ nnoremap <leader>ut :UndotreeToggle<CR>
 Plugin 'godlygeek/tabular'
 
 if exists(":Tabularize")
-	nmap <Leader>ta= :Tabularize /=<CR>
-	vmap <Leader>ta= :Tabularize /=<CR>
-	nmap <Leader>ta: :Tabularize /:\zs<CR>
-	vmap <Leader>ta: :Tabularize /:\zs<CR>
+  :AddTabularPipeline! multi_spaces / / map(a:lines, "substitute(v:val, '  *', ' ', 'g')") | tabular#TabularizeStrings(a:lines, ' ', 'l0')
+  nmap <Leader>ta<Space> :Tabularize multi_spaces<CR>
+  vmap <Leader>ta<Space> :Tabularize multi_spaces<CR>
+  nmap <Leader>ta= :Tabularize /=<CR>
+  vmap <Leader>ta= :Tabularize /=<CR>
+  nmap <Leader>ta: :Tabularize /:\zs<CR>
+  vmap <Leader>ta: :Tabularize /:\zs<CR>
 endif
 
 " align at | as we type - taken from https://gist.github.com/tpope/287147
@@ -468,10 +473,12 @@ Plugin 'Raimondi/delimitMate'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scala ensime
 Plugin 'ensime/ensime-vim'
-autocmd BufWritePost *.scala :EnTypeCheck
+"autocmd BufWritePost *.scala :EnTypeCheck
 nnoremap <leader>tc :EnTypeCheck<CR>
 au FileType scala nnoremap <leader>df :EnDeclarationSplit v<CR>
 au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
+nnoremap <leader>oi :EnOrganizeImports<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " camel case movements
@@ -569,6 +576,7 @@ set hlsearch "highlight search results
 set colorcolumn=+1 " color columns beyond textwidth
 set autoindent		" always set autoindenting on
 set list " show whitespace characters
+set formatoptions-=t " disable auto-wrapping
 
 " good 256color schemes: lucius, xoria256, jellybeans,
 " other 256color schemes: gardener, desert256, inkpot, wombat256, zenburn
@@ -624,6 +632,10 @@ nmap <leader>p :po<CR>
 
 " reload vim config
 nmap <leader>r :so $MYVIMRC<CR>
+
+" keep selection on indent
+vnoremap > >gv
+vnoremap < <gv
 
 " Bubble single lines
 "nmap <C-Up> ddkP
