@@ -7,7 +7,7 @@ Installation
 To use on a mac:
 
     brew install Caskroom/cask/xquartz
-    brew install vim --override-system-vi --with-client-server --with-lua --with-mzscheme --with-tcl
+    brew install vim --override-system-vi --with-client-server --with-lua --with-mzscheme --with-tcl --with-python3
     brew install git
     brew install ctags-exuberant
     brew install scalariform
