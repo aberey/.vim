@@ -102,12 +102,18 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 "   endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" file explorer
+" file explorer - deprecated by defx
 Plugin 'Shougo/vimfiler.vim'
 
 nmap <leader>x :VimFilerExplorer -winwidth=50 <CR>
 " show certain hidden files
 let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
+
+"Plugin 'Shougo/defx.nvim'
+"Plugin 'roxma/nvim-yarp'
+"Plugin 'roxma/vim-hug-neovim-rpc'
+" pip3 install pynvim
+"nmap <leader>x :Defx -toggle <CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helps commenting out selection
@@ -466,12 +472,12 @@ Plugin 'Raimondi/delimitMate'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scala ensime
-Plugin 'ensime/ensime-vim'
-autocmd BufWritePost *.scala :EnTypeCheck
-nnoremap <leader>tc :EnTypeCheck<CR>
-au FileType scala nnoremap <leader>df :EnDeclarationSplit v<CR>
-au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
-nnoremap <leader>oi :EnOrganizeImports<CR>
+"Plugin 'ensime/ensime-vim'
+"autocmd BufWritePost *.scala :EnTypeCheck
+"nnoremap <leader>tc :EnTypeCheck<CR>
+"au FileType scala nnoremap <leader>df :EnDeclarationSplit v<CR>
+"au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
+"nnoremap <leader>oi :EnOrganizeImports<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -527,6 +533,10 @@ set guifont=Literation\ Mono\ Powerline\ Nerd\ Font\ Complete.ttf:h11
 Plugin 'ntpeters/vim-better-whitespace'
 nnoremap <leader><leader>w :StripWhitespace<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'tomlion/vim-solidity'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'fatih/vim-go'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " general settings
 
