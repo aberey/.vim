@@ -505,11 +505,8 @@ Plugin 'vim-scripts/camelcasemotion'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "color schemes
 Plugin 'nanotech/jellybeans.vim'
-set rtp+=~/.vim/bundle/jellybeans.vim
 Plugin 'tomasr/molokai'
-set rtp+=~/.vim/bundle/molokai
 Plugin 'noahfrederick/vim-hemisu'
-set rtp+=~/.vim/bundle/vim-hemisu
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tmux theme integration with lightline
@@ -594,7 +591,10 @@ set formatoptions-=t " disable auto-wrapping
 
 " good 256color schemes: lucius, xoria256, jellybeans,
 " other 256color schemes: gardener, desert256, inkpot, wombat256, zenburn
-colorscheme jellybeans
+try
+  colorscheme jellybeans
+catch /^Vim\%((\a\+)\)\=:E185/
+endtry
 
 " color overrides
 highlight ColorColumn guibg=#2d2d2d ctermbg=235
