@@ -8,7 +8,7 @@ let mapleader = " "
 " plugin manager - TODO: consider vim-plug or dein as alternative
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
+call vundle#begin()
 Plugin 'gmarik/vundle'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -393,8 +393,8 @@ nnoremap <leader>ts :<C-u>Unite -start-insert -ignorecase -smartcase tag<CR>
 nnoremap <leader>ag :<C-u>Unite -start-insert -ignorecase -smartcase grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
 if &rtp =~ 'unite'
-  call unite#filters#matcher_default#use(['matcher_fuzzy'])
   "call unite#filters#sorter_default#use(['sorter_rank'])
+  call unite#filters#matcher_default#use(['matcher_fuzzy'])
   call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.*project.*\|.*target.*\|.*cache.*')
   call unite#custom#profile('custom', 'context.ignorecase', 1)
 endif
@@ -540,6 +540,10 @@ Plugin 'tomlion/vim-solidity'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'fatih/vim-go'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call vundle#end()
+
+
 " general settings
 
 " clipboard integration with mac osx iterm2
