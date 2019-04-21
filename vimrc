@@ -5,7 +5,7 @@ set nocompatible
 let mapleader = " "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin manager - consider vim-plug or dein as alternative
+" plugin manager - TODO: consider vim-plug or dein as alternative
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
@@ -59,16 +59,13 @@ Plugin 'vim-scripts/L9'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " target highlighted motion - using <leader> w|f|t|b
 Plugin 'Lokaltog/vim-easymotion'
-
 map <Leader> <Plug>(easymotion-prefix)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" auto-complete - successor of neocomplcache - also replaced supertab
+" auto-complete plugin - successor of neocomplcache - also replaced supertab
 "Plugin 'ervandew/supertab'
 Plugin 'Shougo/neocomplete'
-
 let g:neocomplete#enable_at_startup = 1
-
 let g:neocomplete#sources#dictionary#dictionaries = {
   \ 'default' : '',
   \ 'scala' : $HOME . '/.vim/dict/scala.dict',
@@ -105,12 +102,18 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 "   endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" file explorer
+" file explorer - deprecated by defx
 Plugin 'Shougo/vimfiler.vim'
 
 nmap <leader>x :VimFilerExplorer -winwidth=50 <CR>
 " show certain hidden files
 let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
+
+"Plugin 'Shougo/defx.nvim'
+"Plugin 'roxma/nvim-yarp'
+"Plugin 'roxma/vim-hug-neovim-rpc'
+" pip3 install pynvim
+"nmap <leader>x :Defx -toggle <CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " helps commenting out selection
@@ -118,12 +121,12 @@ Plugin 'scrooloose/nerdcommenter'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " file explorer with tab support - replaced by vimfiler
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'jistr/vim-nerdtree-tabs'
 "nmap <leader>o :NERDTreeTabsToggle<CR>
-let g:NERDTreeDirArrows=0
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-let g:WebDevIconsNerdTreeGitPluginForceVAlign=1
+"let g:NERDTreeDirArrows=0
+"Plugin 'Xuyuanp/nerdtree-git-plugin'
+"let g:WebDevIconsNerdTreeGitPluginForceVAlign=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " checks programming syntax with external checkers on demand or save
@@ -140,9 +143,7 @@ Plugin 'myusuf3/numbers.vim'
 " ctags pane
 Plugin 'majutsushi/tagbar'
 nmap <leader>tb :TagbarToggle<CR>
-
 let g:tagbar_ctags_bin="ctags" " use local ctags instead of one in /usr/bin/
-
 let g:tagbar_type_scala = {
     \ 'ctagstype' : 'scala',
     \ 'sro'       : '.',
@@ -166,9 +167,11 @@ let g:tagbar_type_scala = {
 "Plugin 'dscleaver/sbt-quickfix'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" adds various scala related add-ons like tagbar plugin type definition for scala
+" adds scala related add-ons like tagbar plugin type definition for scala
 Plugin 'derekwyatt/vim-scala'
-nnoremap <leader>oi :SortScalaImports<CR>
+let g:scala_sort_across_groups=1
+let g:scala_first_party_namespaces='\(ganesha\|adtech\)'
+nmap <leader>ss :SortScalaImports<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scalariform support - plugin corrupt, so install scalariform locally and use directly
@@ -179,7 +182,6 @@ nnoremap <leader>oi :SortScalaImports<CR>
 " session management using :SaveSession and :OpenSession
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
-
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
 
@@ -192,12 +194,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 
 " rebind to < and >
-nmap < [
-nmap > ]
-omap < [
-omap > ]
-xmap < [
-xmap > ]
+"nmap < [
+"nmap > ]
+"omap < [
+"omap > ]
+"xmap < [
+"xmap > ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " sublime text style multiple selections with C-n
@@ -227,7 +229,7 @@ let g:lightline = {
       \ 'component_type': {
       \   'syntastic': 'error',
       \ },
- 			\ 'separator': { 'left': '', 'right': '' },
+      \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
 
@@ -333,23 +335,26 @@ nnoremap <leader>ut :UndotreeToggle<CR>
 Plugin 'godlygeek/tabular'
 
 if exists(":Tabularize")
-	nmap <Leader>ta= :Tabularize /=<CR>
-	vmap <Leader>ta= :Tabularize /=<CR>
-	nmap <Leader>ta: :Tabularize /:\zs<CR>
-	vmap <Leader>ta: :Tabularize /:\zs<CR>
+  :AddTabularPipeline! multi_spaces / / map(a:lines, "substitute(v:val, '  *', '  ', 'g')") | tabular#TabularizeStrings(a:lines, '  ', 'l0')
+  nmap <Leader>tab<Space> :Tabularize multi_spaces<CR>
+  vmap <Leader>tab<Space> :Tabularize multi_spaces<CR>
+  nmap <Leader>tab= :Tabularize /=<CR>
+  vmap <Leader>tab= :Tabularize /=<CR>
+  nmap <Leader>tab: :Tabularize /:\zs<CR>
+  vmap <Leader>tab: :Tabularize /:\zs<CR>
 endif
 
 " align at | as we type - taken from https://gist.github.com/tpope/287147
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 function! s:align()
-	let p = '^\s*|\s.*\s|\s*$'
-	if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-		let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-		let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-		Tabularize/|/l1
-		normal! 0
-		call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-	endif
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -469,11 +474,13 @@ Plugin 'Raimondi/delimitMate'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " scala ensime
-Plugin 'ensime/ensime-vim'
-autocmd BufWritePost *.scala :EnTypeCheck
-nnoremap <leader>tc :EnTypeCheck<CR>
-au FileType scala nnoremap <leader>df :EnDeclarationSplit v<CR>
-au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
+"Plugin 'ensime/ensime-vim'
+"autocmd BufWritePost *.scala :EnTypeCheck
+"nnoremap <leader>tc :EnTypeCheck<CR>
+"au FileType scala nnoremap <leader>df :EnDeclarationSplit v<CR>
+"au FileType scala nnoremap <leader>db :EnDocBrowse<CR>
+"nnoremap <leader>oi :EnOrganizeImports<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " camel case movements
@@ -529,17 +536,22 @@ Plugin 'ntpeters/vim-better-whitespace'
 nnoremap <leader><leader>w :StripWhitespace<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'tomlion/vim-solidity'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'fatih/vim-go'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" general settings
 
 " clipboard integration with mac osx iterm2
 if has("clipboard")
-	set clipboard=unnamed " copy to the system clipboard
-	if has("unnamedplus") " X11 support
-		set clipboard+=unnamedplus
-	endif
+  set clipboard=unnamed " copy to the system clipboard
+  if has("unnamedplus") " X11 support
+    set clipboard+=unnamedplus
+  endif
 endif
 
 if has("vms")
-	set nobackup		" do not keep a backup file, use versions instead
+  set nobackup		" do not keep a backup file, use versions instead
 else
   set backup		" keep a backup file
 endif
@@ -571,6 +583,7 @@ set hlsearch "highlight search results
 set colorcolumn=+1 " color columns beyond textwidth
 set autoindent		" always set autoindenting on
 set list " show whitespace characters
+set formatoptions-=t " disable auto-wrapping
 
 " good 256color schemes: lucius, xoria256, jellybeans,
 " other 256color schemes: gardener, desert256, inkpot, wombat256, zenburn
@@ -629,14 +642,18 @@ nmap <leader>p :po<CR>
 " reload vim config
 nmap <leader>r :so $MYVIMRC<CR>
 
-" Bubble single lines
+" keep selection on indent
+vnoremap > >gv
+vnoremap < <gv
+
+" Bubble single lines - not working
 "nmap <C-Up> ddkP
 "nmap <C-Down> ddp
 " Bubble multiple lines
 "vmap <C-Up> xkP`[V`]
 "vmap <C-Down> xp`[V`]
 
-" use tab key to exit insert mode
+" use tab key to exit insert mode - turned out to be inconvenient
 " nnoremap <Tab> <Esc>
 " vnoremap <Tab> <Esc>gV
 " onoremap <Tab> <Esc>
