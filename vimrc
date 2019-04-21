@@ -387,10 +387,12 @@ nnoremap <leader>ts :<C-u>Unite -start-insert -ignorecase -smartcase tag<CR>
 "nnoremap <leader>ag :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <leader>ag :<C-u>Unite -start-insert -ignorecase -smartcase grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.*project.*\|.*target.*\|.*cache.*')
-call unite#custom#profile('custom', 'context.ignorecase', 1)
+if &rtp =~ 'unite'
+  call unite#filters#matcher_default#use(['matcher_fuzzy'])
+  "call unite#filters#sorter_default#use(['sorter_rank'])
+  call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.*project.*\|.*target.*\|.*cache.*')
+  call unite#custom#profile('custom', 'context.ignorecase', 1)
+endif
 
 function! s:unite_my_settings()
   " Play nice with supertab
@@ -572,7 +574,9 @@ set list " show whitespace characters
 
 " good 256color schemes: lucius, xoria256, jellybeans,
 " other 256color schemes: gardener, desert256, inkpot, wombat256, zenburn
-colorscheme jellybeans
+if &rtp =~ 'jellybeans'
+  colorscheme jellybeans
+endif
 
 " color overrides
 highlight ColorColumn guibg=#2d2d2d ctermbg=235
