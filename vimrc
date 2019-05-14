@@ -561,7 +561,8 @@ else
 endif
 
 if has('mouse')
-  set mouse=a
+  " disabled as it interferes with copy/paste in putty
+  "set mouse=a 
 endif
 
 set pastetoggle=<F2> " toggle paste mode to avoid autoformatting
