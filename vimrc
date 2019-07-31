@@ -134,6 +134,7 @@ Plugin 'scrooloose/syntastic'
 
 "obsolete since ensime-vim integrates scalastyle checking
 "let g:syntastic_scala_checkers=['scalac', 'scalastyle']
+let g:syntastic_python_python_exec = 'python3'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-optimized meaningful line numbers relative to cursor
