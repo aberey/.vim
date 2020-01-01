@@ -1,8 +1,8 @@
-
 " Use Vim settings, rather then Vi settings.
 set nocompatible
 
 let mapleader = " "
+let maplocalleader = " "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin manager - TODO: consider vim-plug or dein as alternative
@@ -64,12 +64,20 @@ map <Leader> <Plug>(easymotion-prefix)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto-complete plugin - successor of neocomplcache - also replaced supertab
 "Plugin 'ervandew/supertab'
-Plugin 'Shougo/neocomplete'
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#sources#dictionary#dictionaries = {
-  \ 'default' : '',
-  \ 'scala' : $HOME . '/.vim/dict/scala.dict',
-	\ }
+
+" deprecated by deocomplete
+"Plugin 'Shougo/neocomplete'
+"let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#sources#dictionary#dictionaries = {
+  "\ 'default' : '',
+  "\ 'scala' : $HOME . '/.vim/dict/scala.dict',
+	"\ }
+
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'deoplete-plugins/deoplete-jedi'
+let g:deoplete#enable_at_startup = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " snippets engine - alterantive to snipmate, ultisnips, xptemplate
@@ -134,7 +142,7 @@ Plugin 'scrooloose/syntastic'
 
 "obsolete since ensime-vim integrates scalastyle checking
 "let g:syntastic_scala_checkers=['scalac', 'scalastyle']
-let g:syntastic_python_python_exec = 'python3'
+"let g:syntastic_python_python_exec = 'python3'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-optimized meaningful line numbers relative to cursor
@@ -214,7 +222,7 @@ let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
-      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ], [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'fugitive': 'LightLineFugitive',
@@ -226,9 +234,17 @@ let g:lightline = {
       \ },
       \ 'component_expand': {
       \   'syntastic': 'SyntasticStatuslineFlag',
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
       \ },
       \ 'component_type': {
       \   'syntastic': 'error',
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
@@ -540,6 +556,38 @@ nnoremap <leader><leader>w :StripWhitespace<CR>
 Plugin 'tomlion/vim-solidity'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'fatih/vim-go'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Python stuff
+Plugin 'dense-analysis/ale'
+Plugin 'maximbaz/lightline-ale'
+Plugin 'google/yapf'
+
+let g:ale_linters = {'python': ['flake8', 'mypy'] }
+let g:ale_fixers = {'python': [
+\   'remove_trailing_lines',
+\   'yapf',
+\]}
+
+autocmd FileType python nnoremap <LocalLeader>pf :ALEFix<CR>
+
+Plugin 'fisadev/vim-isort'
+autocmd FileType python nnoremap <LocalLeader>pi :Isort<CR>
+"let g:vim_isort_map = '<leader>pn'
+
+Plugin 'skywind3000/asyncrun.vim'
+"Plugin 'python-mode/python-mode'
+Plugin 'jeetsukumaran/vim-pythonsense'
+
+Plugin 'davidhalter/jedi-vim'
+let g:jedi#completions_enabled = 0
+let g:jedi#goto_command = "<leader>pg"
+let g:jedi#goto_assignments_command = "<leader>pga"
+let g:jedi#goto_definitions_command = "<leader>pgd"
+let g:jedi#documentation_command = "<leader>pd"
+let g:jedi#usages_command = "<leader>pu"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>pr"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 call vundle#end()
