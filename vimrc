@@ -75,6 +75,7 @@ map <Leader> <Plug>(easymotion-prefix)
 
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/nvim-yarp'
+"let g:python3_host_prog = '/usr/local/Cellar/python@3.9/3.9.5/Frameworks/Python.framework/Versions/3.9/bin/python3'
 Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'deoplete-plugins/deoplete-jedi'
 let g:deoplete#enable_at_startup = 1
@@ -113,9 +114,12 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 " file explorer - deprecated by defx
 Plugin 'Shougo/vimfiler.vim'
 
-nmap <leader>x :VimFilerExplorer -winwidth=50 <CR>
+nmap <leader>x :VimFilerExplorer -winwidth=50 -no-quit <CR>
 " show certain hidden files
 let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
+let g:vimfiler_as_default_explorer = 1
+"autocmd FileType vimfiler nunmap <buffer> <leader>
+autocmd FileType vimfiler nmap <buffer> <leader>x <Plug>(vimfiler_hide)
 
 "Plugin 'Shougo/defx.nvim'
 "Plugin 'roxma/nvim-yarp'
@@ -611,7 +615,7 @@ endif
 
 if has('mouse')
   " disabled as it interferes with copy/paste in putty
-  "set mouse=a 
+  "set mouse=a
 endif
 
 set pastetoggle=<F2> " toggle paste mode to avoid autoformatting
